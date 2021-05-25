@@ -1,0 +1,16 @@
+
+  
+  .mobile-menu{
+    background-color: #333;
+    padding-left: 10px;
+    line-height: 1.5em;
+  }
+  nav a{
+    text-decoration: none;
+    color: #fff;
+  }
+  nav a:hover{
+    color: orange;
+  }
+  
+  

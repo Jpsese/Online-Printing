@@ -1,0 +1,233 @@
+<div class="navbar-fixed">
+
+  <nav>
+    <div class="nav-wrapper black">
+      <a href="#" class="brand-logo">Online Printing</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li>
+          <div class="center row">
+            <div class="col s12 ">
+              <div class="row" id="topbarsearch">
+                <div class="input-field col s6 s12 white-text">
+                  <form [formGroup]="forms" (ngSubmit)="addPost(forms.value)">
+                    <i class="white-text material-icons prefix">search</i>
+                    <input formControlName="query" type="text" id="autocomplete-input" class="autocomplete white-text">
+                    <input type="submit" value="Search" style="display:none" />
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a routerLink="/admin/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div class = "title">Print Files</div>
+<div class="row">
+
+
+  <div class="limiter">
+    <input type="checkbox" name="dialog_state1" id="dialog_state" class="dialog_state">
+    <div id='dialog'>
+      <label id="dlg-back" for="dialog_state"></label>
+      <div id='dlg-wrap'>
+        <label id="dlg-close" for="dialog_state">
+          <i class="icon ion-ios-close-empty"></i>
+        </label>
+        <h2 id='dlg-header'>Enter the amount:</h2>
+        <div id='dlg-content'>
+          <form [formGroup]="forms2" (ngSubmit)="printUpload(forms2.value)">
+            <input type="number" formControlName="amount">
+            <!-- (click)="printUpload(print.id)" -->
+            <button class="modal-action modal-close waves-effect waves-green btn-flat" type="submit">Send</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="container-table100">
+      <div class="wrap-table100">
+        <div class="table100 ver1 m-b-110">
+          <div class="table100-head">
+            <table>
+              <thead>
+                <tr class="row100 head">
+                  <th class="col s2">Class name</th>
+                  <th class="col s1">Date</th>
+                  <th class="col s1">Time</th>
+                  <th class="col s1">Size</th>
+                  <th class="col s1">Type</th>
+                  <th class="col s2">filename</th>
+                  <th class="col s4">Action</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+
+
+          <div class="table100-body js-pscroll">
+            <table>
+              <tbody>
+                <tr class="row100 body" *ngFor="let print of print">
+                  <td class="col s2">{{print.name}}</td>
+                  <td class="col s1">{{print.date}}</td>
+                  <td class="col s1">{{print.time}}</td>
+                  <td class="col s1">{{print.size}}</td>
+                  <td class="col s1">{{print.type}}</td>
+                  <td class="col s2">{{print.filename}}</td>
+                  <td class="col s4">
+                    <a class="btn waves-effect waves-light blue btn-small" style="width:38%" href="http://localhost/api/download.php?id={{print.id}}">Download</a>
+                    <button class="btn waves-effect waves-light #757575 grey darken-1" style="width:30%" type="submit" (click)="cancelUpload(print.id)">Cancel</button>
+                    <label class="btn waves-effect waves-light green" for="dialog_state" (click)="getPrintId(print.id)">Print</label>
+                  </td>
+                  <div id="modal1" class="modal middle-sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+                    <div class="modal-content">
+
+                    </div>
+
+                  </div>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class = "title">Print</div>
+
+
+
+  <div class="limiter">
+    <div class="container-table100">
+      <div class="wrap-table100">
+        <div class="table100 ver1 m-b-110">
+          <div class="table100-head">
+            <table>
+              <thead>
+                <tr class="row100 head">
+                  <th class="col s2">Class name</th>
+                  <th class="col s2">Date</th>
+                  <th class="col s1">Time</th>
+                  <th class="col s2">filename</th>
+                  <th class = "col s1">Amount</th>
+                  <th class="col s4">Action</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div class="table100-body js-pscroll">
+            <table>
+              <tbody>
+                <tr class="row100 body" *ngFor="let paid of paid">
+                  <td class="col s2">{{paid.name}}</td>
+                  <td class="col s2">{{paid.date}}</td>
+                  <td class="col s1">{{paid.time}}</td>
+                  <td class="col s2">{{paid.filename}}</td>
+                  <td class="col s1">&#x20B1;{{paid.amount}}</td>
+                  <td class="col s4">
+                    <a class="btn waves-effect waves-light blue btn-small" style="width:38%" href="http://localhost/api/download.php?id={{paid.id}}">Download</a>
+                    <button class="btn waves-effect waves-light green" style="width:25%" (click)="paidUpload(paid.id)">Paid</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class = "title">Paid Files</div>
+  <div class="limiter">
+    <div class="container-table100">
+      <div class="wrap-table100">
+        <div class="table100 ver1 m-b-110">
+          <div class="table100-head">
+            <table>
+              <thead>
+                <tr class="row100 head">
+                  <th class="col s2">Class name</th>
+                  <th class="col s2">Date</th>
+                  <th class="col s2">Time</th>
+                  <th class="col s2">filename</th>
+                  <th class="col s4">Action</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div class="table100-body js-pscroll">
+            <table>
+              <tbody>
+                <tr class="row100 body" *ngFor="let approve of approve">
+                  <td class="col s2">{{approve.name}}</td>
+                  <td class="col s2">{{approve.date}}</td>
+                  <td class="col s2">{{approve.time}}</td>
+                  <td class="col s2">{{approve.filename}}</td>
+                  <td class="col s4">
+                    <a class="btn waves-effect waves-light blue btn-small" style="width:38%" href="http://localhost/api/download.php?id={{approve.id}}">Download</a>
+                    <button class="btn waves-effect waves-light red" style="width:30%" type="submit" (click)="deleteUpload(approve.id)">Delete</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class = "title">Cancel Files</div>
+  <div class="limiter">
+    <div class="container-table100">
+      <div class="wrap-table100">
+        <div class="table100 ver1 m-b-110">
+          <div class="table100-head">
+            <table>
+              <thead>
+                <tr class="row100 head">
+                  <th class="col s2">Class name</th>
+                  <th class="col s2">Date</th>
+                  <th class="col s2">Time</th>
+                  <th class="col s2">filename</th>
+                  <th class="col s4">Action</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div class="table100-body js-pscroll">
+            <table>
+              <tbody>
+                <tr class="row100 body" *ngFor="let cancel of cancelled">
+                  <td class="col s2">{{cancel.name}}</td>
+                  <td class="col s2">{{cancel.date}}</td>
+                  <td class="col s2">{{cancel.time}}</td>
+                  <td class="col s2">{{cancel.filename}}</td>
+                  <td class="col s4">
+                    <a class="btn waves-effect waves-light blue btn-small" style="width:38%" href="http://localhost/api/download.php?id={{cancel.id}}">Download</a>
+                    <button class="btn waves-effect waves-light red" style="width:30%" type="submit" (click)="deleteUpload(cancel.id)">Delete</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<app-navbar>
+</app-navbar>
+<br>
+<br>
+
+
+<div class="row">
+
+    <div class="col s12">
+        <ul id="tabs-swipe-demo" class="tabs" materialize="tabs">
+            <li class="tab col s3">
+                <a class="active" href="#test1">Not Yet Printed</a>
+            </li>
+            <li class="tab col s3">
+                <a class="active" href="#test2">Printed</a>
+            </li>
+            <li class="tab col s3">
+                <a class="active" href="#test3">Paid</a>
+            </li>
+            <li class="tab col s3">
+                <a class="active" href="#test4">Cancelled</a>
+            </li>
+        </ul>
+
+        <div id="test1" class="col s12 pink-text text-darken-2">
+            <table class="col s10 offset-s1 highlight">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Pick up Date</th>
+                        <th>Pick up Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let file of files">
+                        <td>{{file.filename}}</td>
+                        <td>{{file.date}}</td>
+                        <td>{{file.time}}</td>
+                        <td>
+                            <a class="btn waves-effect waves-light blue btn-small" href="http://localhost/api/download.php?id={{file.id}}">Download</a>
+                            <button class="btn waves-effect waves-light #757575 grey darken-1" type="submit" (click)="cancelUpload(file.id)">Cancel</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div id="test2" class="col s12 pink-text text-darken-2">
+            <table class="col s10 offset-s1 highlight">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Pick up Date</th>
+                        <th>Pick up Time</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let filePrinted of filesPrinted">
+                        <td>{{filePrinted.filename}}</td>
+                        <td>{{filePrinted.date}}</td>
+                        <td>{{filePrinted.time}}</td>
+                        <td>&#x20B1;{{filePrinted.amount}}</td>
+                        <td>
+                            <a class="btn waves-effect waves-light blue btn-small" href="http://localhost/api/download.php?id={{filePrinted.id}}">Download</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div id="test3" class="col s12 pink-text text-darken-2">
+            <table class="col s10 offset-s1 highlight">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let filePaid of filesPaid">
+                        <td>{{filePaid.filename}}</td>
+                        <td>
+                            <a class="btn waves-effect waves-light blue btn-small" href="http://localhost/api/download.php?id={{filePaid.id}}">Download</a>
+                            <button class="btn waves-effect waves-light red" type="submit" (click)="deleteFile(filePaid.id)">Delete</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div id="test4" class="col s12 pink-text text-darken-2">
+            <table class="col s10 offset-s1 highlight">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th class="align-text">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let fileCancel of filesCancel">
+                        <td>{{fileCancel.filename}}</td>
+                        <td>
+                            <a class="btn waves-effect waves-light blue btn-small" href="http://localhost/api/download.php?id={{fileCancel.id}}">Download</a>
+                            <button class="btn waves-effect waves-light red" type="submit" (click)="deleteFile(fileCancel.id)">Delete</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
